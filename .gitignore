@@ -1,9 +1,13 @@
 .idea/
 .venv/
 .vscode/
+build/
+dist/
 
 *.DS_Store
 *.log*
 *.pyc
 *.swp
+
+*.egg-info/
 
