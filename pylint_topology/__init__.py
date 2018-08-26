@@ -24,7 +24,7 @@ class CircularAppDependenciesChecker(BaseChecker):
                 'type': 'csv',
                 'metavar': '<module names>',
                 'help': 'List of module names for which are in a certain topology. Module imports '
-                        'should be forwards, backwards imports are not allowed.'
+                        'should be forwards, backwards imports are not allowed.',
             },
         ),
     )
