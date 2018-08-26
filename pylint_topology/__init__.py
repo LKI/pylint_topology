@@ -5,14 +5,14 @@ from pylint.interfaces import IAstroidChecker
 from pylint.lint import PyLinter
 
 
-class CircularAppDependenciesChecker(BaseChecker):
+class TopologyChecker(BaseChecker):
     __implements__ = IAstroidChecker
 
-    name = 'circular-app-dependencies-checker'
+    name = 'topology-checker'
     msgs = {
         'W0666': (
             'Depends on a higher priority module.',
-            'circular-app-dependencies',
+            'invalid-topological-dependencies',
             'Apps\' dependencies should match a certain topology.',
         ),
     }
@@ -29,13 +29,14 @@ class CircularAppDependenciesChecker(BaseChecker):
         ),
     )
 
-    @check_messages('app-imports-from-higher-app')
+    @check_messages('invalid-topological-dependencies')
     def visit_importfrom(self, node):
         def get_module_index(full_module_name):
             """ get module index in topology """
-            for i, module in enumerate(topology):
-                if full_module_name.startswith(module):
-                    return i
+            for i, modules in enumerate(topology):
+                for module in modules.split('='):
+                    if full_module_name.startswith(module):
+                        return i
             return None
 
         topology = self.config.module_topology
@@ -53,4 +54,4 @@ class CircularAppDependenciesChecker(BaseChecker):
 
 
 def register(linter: PyLinter):
-    linter.register_checker(CircularAppDependenciesChecker(linter))
+    linter.register_checker(TopologyChecker(linter))
