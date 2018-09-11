@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='pylint-topology',
-    version='0.1.1',
+    version='0.1.2',
     description='check module topology in pylint',
     author='Lirian Su',
     author_email='liriansu@gmail.com',
